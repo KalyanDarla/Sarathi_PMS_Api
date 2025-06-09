@@ -1,0 +1,45 @@
+package com.sarathi.support.controller;
+
+import com.sarathi.support.dto.IssueDTO;
+import com.sarathi.support.service.IssueService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/issues")
+public class IssueController {
+
+    private final IssueService service;
+
+     
+    public IssueController(IssueService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<IssueDTO> getAllIssues() {
+        return service.getAllIssues();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<IssueDTO> getIssueById(@PathVariable Integer id) {
+        return service.getIssueById(id);
+    }
+
+    @PostMapping
+    public IssueDTO saveIssue(@RequestBody IssueDTO dto) {
+        return service.saveIssue(dto);
+    }
+
+    @PutMapping("/{id}")
+    public IssueDTO updateIssue(@PathVariable Integer id, @RequestBody IssueDTO dto) {
+        return service.updateIssue(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteIssue(@PathVariable Integer id) {
+        service.deleteIssue(id);
+    }
+}
