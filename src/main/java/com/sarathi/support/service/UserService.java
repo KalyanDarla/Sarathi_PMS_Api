@@ -4,8 +4,6 @@ import com.sarathi.support.dto.UserDTO;
 import com.sarathi.support.entity.User;
 import com.sarathi.support.repository.MemberRepository;
 import com.sarathi.support.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;

@@ -1,8 +1,13 @@
 package com.sarathi.support.service;
 
+import com.sarathi.support.cache.SarathiTicketMasterCache;
 import com.sarathi.support.dto.IssueDTO;
+import com.sarathi.support.dto.IssueViewDto;
+import com.sarathi.support.dto.UserDTO;
 import com.sarathi.support.entity.Issue;
 import com.sarathi.support.repository.IssueRepository;
+import com.sarathi.support.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -14,18 +19,23 @@ import java.util.stream.Collectors;
 public class IssueService {
 
     private final IssueRepository repository;
+    
+    private final UserRepository UserRepository;
+    
+    
 
      
-    public IssueService(IssueRepository repository) {
+    public IssueService(IssueRepository repository,UserRepository UserRepository) {
         this.repository = repository;
+        this.UserRepository=UserRepository;
     }
 
-    public List<IssueDTO> getAllIssues() {
-        return repository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public List<IssueViewDto> getAllIssues() {
+        return repository.findAll().stream().map(this::convertToIssueViewDTO).collect(Collectors.toList());
     }
 
-    public Optional<IssueDTO> getIssueById(Integer id) {
-        return repository.findById(id).map(this::convertToDTO);
+    public Optional<IssueViewDto> getIssueById(Integer id) {
+        return repository.findById(id).map(this::convertToIssueViewDTO);
     }
 
     public IssueDTO saveIssue(IssueDTO dto) {
@@ -80,6 +90,24 @@ public class IssueService {
                 issue.getFixedVersionId(), issue.getAuthorId(), issue.getLockVersion(), issue.getCreatedOn(), issue.getUpdatedOn(),
                 issue.getStartDate(), issue.getDoneRatio(), issue.getEstimatedHours(), issue.getParentId(), issue.getRootId(),
                 issue.getLft(), issue.getRgt(), issue.getIsPrivate(), issue.getClosedOn());
+    }
+    
+    private IssueViewDto convertToIssueViewDTO(Issue issue) {
+    	UserService userService = new UserService(UserRepository);
+    	String trackerName=SarathiTicketMasterCache.getTrackerInfoByTrackerId(issue.getTrackerId());
+    	String projectName = SarathiTicketMasterCache.getProjectInfoByProjectId(issue.getProjectId());
+    	String statusId = SarathiTicketMasterCache.getIssueStatusInfoByStatusId(issue.getStatusId());
+    	Optional<UserDTO> assignedUserInfo= userService.getUserById(issue.getAssignedToId());
+    	String assignedName = assignedUserInfo.get().getFirstname()+assignedUserInfo.get().getLastname();
+    	Optional<UserDTO> reporterInfo =userService.getUserById(issue.getAuthorId());
+    	String reporterName = reporterInfo.get().getFirstname()+reporterInfo.get().getLastname();
+		  
+		return new IssueViewDto(issue.getId(), trackerName, projectName, issue.getSubject(), issue.getDescription(),
+				issue.getDueDate(), issue.getCategoryId().toString(), statusId, assignedName, issue.getPriorityId(),
+				issue.getFixedVersionId(), reporterName, issue.getLockVersion(), issue.getCreatedOn(),
+				issue.getUpdatedOn(), issue.getStartDate(), issue.getDoneRatio(), issue.getEstimatedHours(),
+				issue.getParentId(), issue.getRootId());
+			
     }
 
     private Issue convertToEntity(IssueDTO dto) {

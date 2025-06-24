@@ -23,8 +23,8 @@ public class CommentService {
         return repository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public Optional<CommentDTO> getCommentById(Integer id) {
-        return repository.findById(id).map(this::convertToDTO);
+    public  List<CommentDTO> getCommentById(Integer id) {
+        return repository.findBycommentedId(id).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     public CommentDTO saveComment(CommentDTO dto) {
