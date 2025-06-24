@@ -6,6 +6,7 @@ import com.sarathi.support.repository.WorkflowRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -13,8 +14,7 @@ import java.util.stream.Collectors;
 public class WorkflowService {
 
     private final WorkflowRepository repository;
-
-     
+    
     public WorkflowService(WorkflowRepository repository) {
         this.repository = repository;
     }
@@ -56,6 +56,13 @@ public class WorkflowService {
 
     public void deleteWorkflow(Integer id) {
         repository.deleteById(id);
+    }
+    
+    public List<Long> getNewStatusIds(Long projectId,Long userId,Integer oldStatusId,Integer trackerId)
+    {
+    	List<Long> ar = new ArrayList<Long>();
+    	return ar;
+    	//return repository.findNewStatusIds(projectId, userId, oldStatusId, trackerId);
     }
 
     private WorkflowDTO convertToDTO(Workflow workflow) {

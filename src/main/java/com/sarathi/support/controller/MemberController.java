@@ -42,5 +42,10 @@ public class MemberController {
     public void deleteMember(@PathVariable Integer id) {
         service.deleteMember(id);
     }
+    
+    @GetMapping("/{projectId}")
+    public List<String> getUsersByProjectId(@PathVariable Integer projectId) {
+        return service.getUsersByProjectId(projectId);
+    }
 }
 

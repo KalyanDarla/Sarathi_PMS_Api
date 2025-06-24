@@ -42,4 +42,12 @@ public class WorkflowController {
     public void deleteWorkflow(@PathVariable Integer id) {
         service.deleteWorkflow(id);
     }
+    
+    @GetMapping("/new-status")
+    public List<Long> getNewStatusIds(@RequestParam Long projectId,
+                                      @RequestParam Long userId,
+                                      @RequestParam Integer oldStatusId,
+                                      @RequestParam Integer trackerId) {
+        return service.getNewStatusIds(projectId, userId, oldStatusId, trackerId);
+    }
 }

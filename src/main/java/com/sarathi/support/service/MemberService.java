@@ -2,6 +2,7 @@ package com.sarathi.support.service;
 
 import com.sarathi.support.dto.MemberDTO;
 import com.sarathi.support.entity.Member;
+import com.sarathi.support.entity.User;
 import com.sarathi.support.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,10 @@ public class MemberService {
         member.setCreatedOn(Instant.now());
         Member savedMember = repository.save(member);
         return convertToDTO(savedMember);
+    }
+    
+    public List<String> getUsersByProjectId(Integer projectId){
+    	return repository.findByprojectId(projectId);
     }
 
     public MemberDTO updateMember(Integer id, MemberDTO dto) {
