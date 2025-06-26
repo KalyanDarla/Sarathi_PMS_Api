@@ -2,6 +2,7 @@ package com.sarathi.support.service;
 
 import com.sarathi.support.dto.UserDTO;
 import com.sarathi.support.entity.User;
+import com.sarathi.support.repository.MemberRepository;
 import com.sarathi.support.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,12 +18,10 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository repository;
-    //private final PasswordEncoder passwordEncoder;
      
-    public UserService(UserRepository repository ) {
+    public UserService(UserRepository repository,MemberRepository memberRepository ) {
         this.repository = repository;
      }
-
     public List<UserDTO> getAllUsers() {
         return repository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
@@ -36,6 +35,7 @@ public class UserService {
          User  savedUser = repository.save(user);
          return convertToDTO(savedUser);
     }
+    
 
     public UserDTO updateUser(Integer id, UserDTO dto) {
         Optional<User> existingUserOpt = repository.findById(id);

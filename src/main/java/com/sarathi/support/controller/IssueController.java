@@ -18,7 +18,7 @@ public class IssueController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/getAllIssues")
     public List<IssueDTO> getAllIssues() {
         return service.getAllIssues();
     }
@@ -28,7 +28,7 @@ public class IssueController {
         return service.getIssueById(id);
     }
 
-    @PostMapping
+    @PostMapping("/saveIssue")
     public IssueDTO saveIssue(@RequestBody IssueDTO dto) {
         return service.saveIssue(dto);
     }
