@@ -1,6 +1,7 @@
 package com.sarathi.support.controller;
 
 import com.sarathi.support.dto.IssueDTO;
+import com.sarathi.support.dto.IssueViewDto;
 import com.sarathi.support.service.IssueService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,12 @@ public class IssueController {
     }
 
     @GetMapping("/getAllIssues")
-    public List<IssueDTO> getAllIssues() {
+    public List<IssueViewDto> getAllIssues() {
         return service.getAllIssues();
     }
 
     @GetMapping("/{id}")
-    public Optional<IssueDTO> getIssueById(@PathVariable Integer id) {
+    public Optional<IssueViewDto> getIssueById(@PathVariable Integer id) {
         return service.getIssueById(id);
     }
 

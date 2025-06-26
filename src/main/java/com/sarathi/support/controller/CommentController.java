@@ -23,8 +23,14 @@ public class CommentController {
         return service.getAllComments();
     }
 
+    
+    @GetMapping("/getCommentsByIssueId")
+    public List<CommentDTO> getAllCommentsByIssueId(@PathVariable Integer commentId) {
+        return service.getCommentById(commentId);
+    }
+    
     @GetMapping("/{id}")
-    public Optional<CommentDTO> getCommentById(@PathVariable Integer id) {
+    public  List<CommentDTO> getCommentById(@PathVariable Integer id) {
         return service.getCommentById(id);
     }
 
