@@ -16,10 +16,12 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository repository;
-     
-    public UserService(UserRepository repository,MemberRepository memberRepository ) {
+    
+    public UserService(UserRepository repository ) {
         this.repository = repository;
      }
+    
+   
     public List<UserDTO> getAllUsers() {
         return repository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
