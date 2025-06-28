@@ -37,6 +37,12 @@ public class IssueService {
     public Optional<IssueViewDto> getIssueById(Integer id) {
         return repository.findById(id).map(this::convertToIssueViewDTO);
     }
+    
+    public Integer getMaxIssueId() {
+    	Integer maxId = repository.findMaxId();
+        return (maxId != null ? maxId + 1 : 1);
+    }
+
 
     public IssueDTO saveIssue(IssueDTO dto) {
         Issue issue = convertToEntity(dto);
@@ -89,7 +95,7 @@ public class IssueService {
                 issue.getDueDate(), issue.getCategoryId(), issue.getStatusId(), issue.getAssignedToId(), issue.getPriorityId(),
                 issue.getFixedVersionId(), issue.getAuthorId(), issue.getLockVersion(), issue.getCreatedOn(), issue.getUpdatedOn(),
                 issue.getStartDate(), issue.getDoneRatio(), issue.getEstimatedHours(), issue.getParentId(), issue.getRootId(),
-                issue.getLft(), issue.getRgt(), issue.getIsPrivate(), issue.getClosedOn());
+                issue.getLft(), issue.getRgt(), issue.getIsPrivate(), issue.getClosedOn(), issue.getNicTeamHead(),issue.getState(),issue.getModleName());
     }
     
     private IssueViewDto convertToIssueViewDTO(Issue issue) {
@@ -112,7 +118,8 @@ public class IssueService {
 
     private Issue convertToEntity(IssueDTO dto) {
         Issue issue = new Issue();
-        issue.setId(dto.getId());
+        
+        issue.setId(this.getMaxIssueId());
         issue.setTrackerId(dto.getTrackerId());
         issue.setProjectId(dto.getProjectId());
         issue.setSubject(dto.getSubject());
@@ -136,6 +143,9 @@ public class IssueService {
         issue.setRgt(dto.getRgt());
         issue.setIsPrivate(dto.getIsPrivate());
         issue.setClosedOn(dto.getClosedOn());
+        issue.setNicTeamHead(dto.getNicTeamHead());
+        issue.setState(dto.getState());
+        issue.setModleName(dto.getModleName());
         return issue;
     }
 }

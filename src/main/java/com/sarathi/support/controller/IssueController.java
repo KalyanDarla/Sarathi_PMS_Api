@@ -43,4 +43,6 @@ public class IssueController {
     public void deleteIssue(@PathVariable Integer id) {
         service.deleteIssue(id);
     }
+    
+ 
 }

@@ -1,6 +1,7 @@
 package com.sarathi.support.controller;
 
 import com.sarathi.support.dto.MemberDTO;
+import com.sarathi.support.dto.UserDTO;
 import com.sarathi.support.service.MemberService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,12 @@ public class MemberController {
         return service.getAllMembers();
     }
 
+    /*
     @GetMapping("/{id}")
     public Optional<MemberDTO> getMemberById(@PathVariable Integer id) {
         return service.getMemberById(id);
     }
-
+*/
     @PostMapping
     public MemberDTO saveMember(@RequestBody MemberDTO dto) {
         return service.saveMember(dto);
@@ -44,7 +46,7 @@ public class MemberController {
     }
     
     @GetMapping("/{projectId}")
-    public List<String> getUsersByProjectId(@PathVariable Integer projectId) {
+    public List<UserDTO> getUsersByProjectId(@PathVariable Integer projectId) {
         return service.getUsersByProjectId(projectId);
     }
 }

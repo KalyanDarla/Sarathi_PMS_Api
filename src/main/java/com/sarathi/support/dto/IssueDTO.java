@@ -3,6 +3,8 @@ package com.sarathi.support.dto;
 import java.time.Instant;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+
 public class IssueDTO {
     private Integer id;
     private Integer trackerId;
@@ -28,38 +30,73 @@ public class IssueDTO {
     private Integer rgt;
     private Boolean isPrivate;
     private Instant closedOn;
+ 
+    private String nicTeamHead;
+    private String state;
+    private String modleName;
 
-    public IssueDTO() {}
+    public String getNicTeamHead() {
+		return nicTeamHead;
+	}
 
-    public IssueDTO(Integer id, Integer trackerId, Integer projectId, String subject, String description, LocalDate dueDate,
-                    Integer categoryId, Integer statusId, Integer assignedToId, Integer priorityId, Integer fixedVersionId,
-                    Integer authorId, Integer lockVersion, Instant createdOn, Instant updatedOn, LocalDate startDate, Integer doneRatio,
-                    Double estimatedHours, Integer parentId, Integer rootId, Integer lft, Integer rgt, Boolean isPrivate, Instant closedOn) {
-        this.id = id;
-        this.trackerId = trackerId;
-        this.projectId = projectId;
-        this.subject = subject;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.categoryId = categoryId;
-        this.statusId = statusId;
-        this.assignedToId = assignedToId;
-        this.priorityId = priorityId;
-        this.fixedVersionId = fixedVersionId;
-        this.authorId = authorId;
-        this.lockVersion = lockVersion;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
-        this.startDate = startDate;
-        this.doneRatio = doneRatio;
-        this.estimatedHours = estimatedHours;
-        this.parentId = parentId;
-        this.rootId = rootId;
-        this.lft = lft;
-        this.rgt = rgt;
-        this.isPrivate = isPrivate;
-        this.closedOn = closedOn;
-    }
+	public void setNicTeamHead(String nicTeamHead) {
+		this.nicTeamHead = nicTeamHead;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getModleName() {
+		return modleName;
+	}
+
+	public void setModleName(String modleName) {
+		this.modleName = modleName;
+	}
+
+	public IssueDTO() {}
+
+    
+	public IssueDTO(Integer id, Integer trackerId, Integer projectId, String subject, String description,
+			LocalDate dueDate, Integer categoryId, Integer statusId, Integer assignedToId, Integer priorityId,
+			Integer fixedVersionId, Integer authorId, Integer lockVersion, Instant createdOn, Instant updatedOn,
+			LocalDate startDate, Integer doneRatio, Double estimatedHours, Integer parentId, Integer rootId,
+			Integer lft, Integer rgt, Boolean isPrivate, Instant closedOn, String nicTeamHead, String state,
+			String modleName) {
+		super();
+		this.id = id;
+		this.trackerId = trackerId;
+		this.projectId = projectId;
+		this.subject = subject;
+		this.description = description;
+		this.dueDate = dueDate;
+		this.categoryId = categoryId;
+		this.statusId = statusId;
+		this.assignedToId = assignedToId;
+		this.priorityId = priorityId;
+		this.fixedVersionId = fixedVersionId;
+		this.authorId = authorId;
+		this.lockVersion = lockVersion;
+		this.createdOn = createdOn;
+		this.updatedOn = updatedOn;
+		this.startDate = startDate;
+		this.doneRatio = doneRatio;
+		this.estimatedHours = estimatedHours;
+		this.parentId = parentId;
+		this.rootId = rootId;
+		this.lft = lft;
+		this.rgt = rgt;
+		this.isPrivate = isPrivate;
+		this.closedOn = closedOn;
+		this.nicTeamHead = nicTeamHead;
+		this.state = state;
+		this.modleName = modleName;
+	}
 
 	public Integer getId() {
 		return id;

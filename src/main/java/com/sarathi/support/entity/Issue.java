@@ -92,8 +92,41 @@ public class Issue {
 
     @Column(name = "closed_on")
     private Instant closedOn;
+    
+    
+    @Column(name = "NicTeamHead")
+     private String nicTeamHead;
+    @Column(name = "state")
+    private String state;
+    @Column(name = "ModuleName")
+    private String modleName;
 
-    public Integer getId() {
+    
+    public String getNicTeamHead() {
+		return nicTeamHead;
+	}
+
+	public void setNicTeamHead(String nicTeamHead) {
+		this.nicTeamHead = nicTeamHead;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getModleName() {
+		return modleName;
+	}
+
+	public void setModleName(String modleName) {
+		this.modleName = modleName;
+	}
+
+	public Integer getId() {
         return id;
     }
 

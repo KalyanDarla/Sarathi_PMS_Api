@@ -1,12 +1,14 @@
 package com.sarathi.support.service;
 
 import com.sarathi.support.dto.MemberDTO;
+import com.sarathi.support.dto.UserDTO;
 import com.sarathi.support.entity.Member;
 import com.sarathi.support.entity.User;
 import com.sarathi.support.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,11 +38,25 @@ public class MemberService {
         return convertToDTO(savedMember);
     }
     
-    public List<String> getUsersByProjectId(Integer projectId){
-    	return repository.findByprojectId(projectId);
+    public List<UserDTO> getUsersByProjectId(Integer projectId){
+    	List<User> usersByProjectId = repository.findByprojectId(projectId);
+    	return convertUserToUserDTo(usersByProjectId);
     }
 
-    public MemberDTO updateMember(Integer id, MemberDTO dto) {
+    private List<UserDTO> convertUserToUserDTo(List<User> usersByProjectId) {
+    	List<UserDTO> userDtoList = new ArrayList<UserDTO>();
+    	for(User user : usersByProjectId) {
+			UserDTO tempuserdto = new UserDTO(user.getId(), user.getLogin(), user.getHashedPassword(), user.getFirstname(),
+					user.getLastname(), user.getAdmin(), user.getStatus(), user.getLastLoginOn(), user.getLanguage(),
+					user.getAuthSourceId(), user.getCreatedOn(), user.getUpdatedOn(), user.getType(),
+					user.getIdentityUrl(), user.getMailNotification(), user.getSalt(), user.getMustChangePasswd(),
+					user.getPasswdChangedOn());
+			userDtoList.add(tempuserdto);
+    	}
+        return userDtoList;
+	}
+
+	public MemberDTO updateMember(Integer id, MemberDTO dto) {
         Optional<Member> existingMemberOpt = repository.findById(id);
         if (existingMemberOpt.isPresent()) {
             Member existingMember = existingMemberOpt.get();

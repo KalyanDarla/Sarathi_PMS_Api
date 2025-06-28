@@ -24,7 +24,7 @@ public class CommentController {
     }
 
     
-    @GetMapping("/getCommentsByIssueId")
+    @GetMapping("/{getCommentsByIssueId}")
     public List<CommentDTO> getAllCommentsByIssueId(@PathVariable Integer commentId) {
         return service.getCommentById(commentId);
     }
