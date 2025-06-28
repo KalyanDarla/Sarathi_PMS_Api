@@ -44,5 +44,8 @@ public class IssueController {
         service.deleteIssue(id);
     }
     
- 
+    @GetMapping("/assign/{id}")
+    public List<IssueViewDto> getIssueByAssignId(@PathVariable Integer id) {
+        return service.getIssueByAssignId(id);
+    }
 }
