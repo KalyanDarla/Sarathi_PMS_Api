@@ -20,6 +20,8 @@ public class UserService {
     public UserService(UserRepository repository) {
         this.repository = repository;
      }
+    
+   
     public List<UserDTO> getAllUsers() {
         return repository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
