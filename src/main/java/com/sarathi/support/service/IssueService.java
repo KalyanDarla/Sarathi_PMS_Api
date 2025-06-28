@@ -11,6 +11,7 @@ import com.sarathi.support.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +39,16 @@ public class IssueService {
         return repository.findById(id).map(this::convertToIssueViewDTO);
     }
     
+    public List<IssueViewDto> getIssueByAssignId(Integer assignId){
+    	List<Issue> issueList = repository.findByassignedToId(assignId);
+    	List<IssueViewDto> issueViewList = new ArrayList<IssueViewDto>();
+    	for(Issue issue : issueList) {
+    		IssueViewDto issueViewDto = convertToIssueViewDTO(issue);
+    		issueViewList.add(issueViewDto);
+    	}
+    	return issueViewList;
+    }
+    
     public Integer getMaxIssueId() {
     	Integer maxId = repository.findMaxId();
         return (maxId != null ? maxId + 1 : 1);
@@ -46,7 +57,6 @@ public class IssueService {
 
     public IssueDTO saveIssue(IssueDTO dto) {
         Issue issue = convertToEntity(dto);
-
         Issue savedIssue = repository.save(issue);
         return convertToDTO(savedIssue);
     }
