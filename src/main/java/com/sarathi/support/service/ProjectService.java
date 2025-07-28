@@ -4,6 +4,7 @@ import com.sarathi.support.dto.ProjectDTO;
 import com.sarathi.support.entity.Project;
 import com.sarathi.support.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.Instant;
 import java.util.List;
@@ -35,7 +36,13 @@ public class ProjectService {
         Project savedProject = repository.save(project);
         return convertToDTO(savedProject);
     }
-
+    public List<ProjectDTO> getProjectByUserId(Integer userId) {
+    	return repository.findByDefaultAssignedToId(userId).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    	
+    
+    }
     public ProjectDTO updateProject(Integer id, ProjectDTO dto) {
         Optional<Project> existingProjectOpt = repository.findById(id);
         if (existingProjectOpt.isPresent()) {

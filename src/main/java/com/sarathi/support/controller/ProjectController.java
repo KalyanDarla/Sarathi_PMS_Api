@@ -27,6 +27,10 @@ public class ProjectController {
     public Optional<ProjectDTO> getProjectById(@PathVariable Integer id) {
         return service.getProjectById(id);
     }
+    @GetMapping("/project/{userId}")
+    public List<ProjectDTO> getProjectByUserId(@PathVariable Integer userId) {
+        return service.getProjectByUserId(userId);
+    }
 
     @PostMapping
     public ProjectDTO saveProject(@RequestBody ProjectDTO dto) {

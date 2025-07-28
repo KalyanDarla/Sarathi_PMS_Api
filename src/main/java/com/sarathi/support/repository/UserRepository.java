@@ -13,5 +13,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByLogin(String username);
     @Query("SELECT u.login FROM User u")
     List<String> findByLogin();
+    @Query("SELECT MAX(i.id) FROM User i")
+    Integer findMaxId();
+	
 }
 

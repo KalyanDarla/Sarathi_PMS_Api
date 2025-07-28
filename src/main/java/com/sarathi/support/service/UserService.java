@@ -35,7 +35,10 @@ public class UserService {
          User  savedUser = repository.save(user);
          return convertToDTO(savedUser);
     }
-    
+    public Integer getMaxIssueId() {
+    	Integer maxId = repository.findMaxId();
+        return (maxId != null ? maxId + 1 : 1);
+    }
 
     public UserDTO updateUser(Integer id, UserDTO dto) {
         Optional<User> existingUserOpt = repository.findById(id);
@@ -94,7 +97,7 @@ public class UserService {
 
     private User convertToEntity(UserDTO dto) {
         User user = new User();
-        user.setId(dto.getId());
+        user.setId(this.getMaxIssueId());
         user.setLogin(dto.getLogin());
         user.setHashedPassword(dto.getHashedPassword());
         user.setFirstname(dto.getFirstname());

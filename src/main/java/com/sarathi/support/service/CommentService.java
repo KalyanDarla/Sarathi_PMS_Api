@@ -32,7 +32,10 @@ public class CommentService {
         Comment savedComment = repository.save(comment);
         return convertToDTO(savedComment);
     }
-
+    public Integer getMaxIssueId() {
+    	Integer maxId = repository.findMaxId();
+        return (maxId != null ? maxId + 1 : 1);
+    }
     public void deleteComment(Integer id) {
         repository.deleteById(id);
     }
@@ -51,7 +54,7 @@ public class CommentService {
 
     private Comment convertToEntity(CommentDTO dto) {
         Comment comment = new Comment();
-        comment.setId(dto.getId());
+        comment.setId(this.getMaxIssueId());
         comment.setCommentedType(dto.getCommentedType());
         comment.setCommentedId(dto.getCommentedId());
         comment.setAuthorId(dto.getAuthorId());

@@ -34,7 +34,7 @@ public class UserController {
         return service.getUserById(id);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public UserDTO saveUser(@RequestBody UserDTO dto) {
         return service.saveUser(dto);
     }

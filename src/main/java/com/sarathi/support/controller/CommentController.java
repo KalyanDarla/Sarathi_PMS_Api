@@ -25,15 +25,15 @@ public class CommentController {
 
     
     @GetMapping("/{getCommentsByIssueId}")
-    public List<CommentDTO> getAllCommentsByIssueId(@PathVariable Integer commentId) {
-        return service.getCommentById(commentId);
+    public List<CommentDTO> getAllCommentsByIssueId(@PathVariable Integer getCommentsByIssueId) {
+        return service.getCommentById(getCommentsByIssueId);
     }
     
-    @GetMapping("/{id}")
+  /*  @GetMapping("/{id}")
     public  List<CommentDTO> getCommentById(@PathVariable Integer id) {
         return service.getCommentById(id);
     }
-
+*/
     @PostMapping
     public CommentDTO saveComment(@RequestBody CommentDTO dto) {
         return service.saveComment(dto);
